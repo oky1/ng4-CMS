@@ -1,0 +1,35 @@
+<!-- {{id}} -->
+<span>{{err}}</span>
+<div class='wrapper'>
+  <div class='block' 
+    (keyup)='updateFromBlock()' 
+    (focusout)='save()' 
+  >
+    <div class='block-type'>
+      <h2>{{block.type}}</h2>
+      <button (click)='deleteBlock($event)'>Delete</button>
+    </div>
+    <form class='form' (submit)='addType($event)'>
+      <label for='title'>Title</label>
+      <br/>
+      <input type='text' name='title' class='title' [(ngModel)]='block.title.value' />
+      <br />
+      <br />
+      <label for='description'>Accessibility</label>
+      <br/>
+      <div *ngFor="let radio of block.description.options; let i = index ">
+          <input 
+            type='radio' 
+            class='radio' 
+            name="options" 
+            ng-control="options"
+            [value]='block.description.options[i].value'
+            [(ngModel)]='block.description.value'
+            [name]='block.description.options[i].title'
+            (click)='block.description.value = block.description.options[i].value'
+          />
+          <label for="radio">{{block.description.options[i].title}}</label>
+        </div>
+      </form>
+  </div>
+</div>
